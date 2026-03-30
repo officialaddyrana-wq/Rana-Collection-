@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RANA COLLECTION | Smart E-Commerce Store</title>
+    <style>
+      :root {
+        --bg: #f6f7fb;
+        --surface: #ffffff;
+        --surface-2: #f1f5f9;
+        --text: #111827;
+        --muted: #64748b;
+        --brand: #7c3aed;
+        --brand-strong: #5b21b6;
+        --accent: #0ea5e9;
+        --border: #e2e8f0;
+        --success: #16a34a;
+        --danger: #dc2626;
+        --shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+      }
+
+      body.dark {
+        --bg: #0b1021;
+        --surface: #111831;
+        --surface-2: #1a2344;
+        --text: #e2e8f0;
+        --muted: #93a1bf;
+        --brand: #8b5cf6;
+        --brand-strong: #7c3aed;
+        --accent: #38bdf8;
+        --border: #223056;
+        --success: #22c55e;
+        --danger: #ef4444;
+        --shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        scroll-behavior: smooth;
+      }
+
+      .container {
+        width: min(1140px, 92vw);
+        margin-inline: auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .btn {
+        border: 0;
+        border-radius: 0.65rem;
+        background: var(--brand);
+        color: #fff;
+        padding: 0.65rem 0.95rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.15s ease, opacity 0.15s ease, background 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+        background: var(--brand-strong);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        border: 1px solid var(--border);
+        padding: 0.35rem 0.7rem;
+        border-radius: 999px;
+        font-size: 0.88rem;
+        color: var(--muted);
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(7px);
+        background: color-mix(in srgb, var(--surface) 90%, transparent);
+        border-bottom: 1px solid var(--border);
+        z-index: 30;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.9rem 0;
+      }
+
+      .logo {
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        color: var(--brand-strong);
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 0.95rem;
+        color: var(--muted);
+      }
+
+      nav a:hover {
+        color: var(--text);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+      }
+
+      .hero {
+        padding: 3.2rem 0 2rem;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 1.1rem;
+      }
+
+      .hero-card {
+        background: linear-gradient(130deg, color-mix(in srgb, var(--brand) 12%, var(--surface)), var(--surface));
+        border: 1px solid var(--border);
+        border-radius: 1rem;
+        box-shadow: var(--shadow);
+        padding: 1.2rem;
+      }
+
+      .hero h1 {
+        margin-top: 0;
+        font-size: clamp(2rem, 4.2vw, 3.1rem);
+        line-height: 1.1;
+      }
+
+      .sub {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .search-tools {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 0.6rem;
+        margin-top: 1rem;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 0.65rem;
+        padding: 0.67rem 0.75rem;
+        background: var(--surface);
+        color: var(--text);
+      }
+
+      .section-head {
+        margin-top: 2rem;
+        margin-bottom: 0.9rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+      }
+
+      .chip {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--muted);
+        border-radius: 999px;
+        padding: 0.4rem 0.73rem;
+        cursor: pointer;
+      }
+
+      .chip.active {
+        background: var(--brand);
+        border-color: var(--brand);
+        color: #fff;
+      }
+
+      .products {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.85rem;
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 0.9rem;
+        padding: 0.8rem;
+      }
+
+      .product {
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      .thumb {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 0.72rem;
+        background: linear-gradient(145deg, color-mix(in srgb, var(--brand) 22%, #fff), color-mix(in srgb, var(--accent) 18%, #fff));
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        color: var(--brand-strong);
+      }
+
+      .muted {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .price-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.45rem;
+      }
+
+      .meta {
+        margin: 2rem 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.85rem;
+      }
+
+      .deals {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.85rem;
+      }
+
+      .deal {
+        background: linear-gradient(140deg, color-mix(in srgb, var(--accent) 10%, var(--surface)), var(--surface));
+      }
+
+      .cart-panel {
+        position: fixed;
+        right: 1rem;
+        bottom: 1rem;
+        width: min(360px, 92vw);
+        max-height: 55vh;
+        overflow: auto;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        border-radius: 1rem;
+        box-shadow: var(--shadow);
+        padding: 0.85rem;
+        z-index: 40;
+        transform: translateY(calc(100% + 2rem));
+        transition: transform 0.25s ease;
+      }
+
+      .cart-panel.open {
+        transform: translateY(0);
+      }
+
+      .cart-row {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        align-items: center;
+        gap: 0.4rem;
+        border-bottom: 1px dashed var(--border);
+        padding: 0.5rem 0;
+      }
+
+      .qty-btn {
+        border: 1px solid var(--border);
+        background: var(--surface-2);
+        color: var(--text);
+        width: 1.8rem;
+        height: 1.8rem;
+        border-radius: 0.4rem;
+        cursor: pointer;
+      }
+
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 1.1rem;
+        transform: translateX(-50%) translateY(120%);
+        background: var(--text);
+        color: var(--surface);
+        border-radius: 999px;
+        padding: 0.45rem 0.82rem;
+        font-size: 0.85rem;
+        transition: transform 0.25s ease;
+        z-index: 50;
+      }
+
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      .newsletter {
+        margin: 2rem 0;
+      }
+
+      .newsletter form {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0.55rem;
+      }
+
+      .contact {
+        margin: 2rem 0;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.85rem;
+      }
+
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .msg {
+        min-height: 1.2rem;
+        color: var(--success);
+        margin-top: 0.55rem;
+        font-size: 0.92rem;
+      }
+
+      footer {
+        margin-top: 2.2rem;
+        border-top: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.8rem;
+        padding: 1rem 0;
+        color: var(--muted);
+        flex-wrap: wrap;
+      }
+
+      .empty {
+        grid-column: 1 / -1;
+        text-align: center;
+        color: var(--muted);
+        padding: 1rem;
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid,
+        .products,
+        .meta,
+        .contact-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 720px) {
+        nav {
+          display: none;
+        }
+
+        .hero-grid,
+        .products,
+        .meta,
+        .deals,
+        .contact-grid,
+        .newsletter form,
+        .search-tools {
+          grid-template-columns: 1fr;
+        }
+
+        .nav-actions {
+          gap: 0.35rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container topbar">
+        <a class="logo" href="#home">RANA COLLECTION</a>
+        <nav>
+          <a href="#products">Products</a>
+          <a href="#deals">Deals</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="btn btn-outline" id="themeToggle" type="button">Theme</button>
+          <button class="btn btn-outline" id="cartToggle" type="button">Cart (<span id="cartCount">0</span>)</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" id="home">
+      <section class="hero">
+        <div class="hero-grid">
+          <article class="hero-card">
+            <span class="pill">Fast delivery • Secure checkout • Weekly arrivals</span>
+            <h1>Shop smarter with RANA COLLECTION</h1>
+            <p class="sub">
+              Your complete online storefront for fashion and lifestyle essentials with filtering,
+              sorting, cart controls, and a polished shopping experience.
+            </p>
+            <div class="search-tools">
+              <input id="searchInput" type="search" placeholder="Search products (e.g. shirt, watch)" />
+              <select id="sortSelect" aria-label="Sort products">
+                <option value="popular">Sort: Popular</option>
+                <option value="priceAsc">Price: Low to High</option>
+                <option value="priceDesc">Price: High to Low</option>
+                <option value="nameAsc">Name: A → Z</option>
+              </select>
+              <button class="btn" id="resetBtn" type="button">Reset</button>
+            </div>
+            <div class="msg" id="liveMsg"></div>
+          </article>
+          <aside class="hero-card">
+            <h3 style="margin-top: 0">Why choose us?</h3>
+            <p class="muted">✅ Verified quality products</p>
+            <p class="muted">✅ Secure payment protection</p>
+            <p class="muted">✅ Personalized support</p>
+            <p class="muted">✅ Easy 7-day returns</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="products">
+        <div class="section-head">
+          <h2 style="margin: 0">Featured Products</h2>
+          <span class="pill" id="resultCount">0 items</span>
+        </div>
+        <div class="chips" id="categoryFilters"></div>
+        <div class="products" id="productGrid"></div>
+      </section>
+
+      <section class="meta" id="about">
+        <article class="card">
+          <h3>About RANA COLLECTION</h3>
+          <p class="muted">
+            We blend quality, affordability, and style to offer a premium shopping experience for
+            modern customers.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Secure & Trusted</h3>
+          <p class="muted">
+            Every transaction uses encrypted communication, fraud monitoring, and protected checkout.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Support</h3>
+          <p class="muted">Email: support@ranacollection.com</p>
+          <p class="muted">Phone: +1 (555) 123-4567</p>
+        </article>
+      </section>
+
+      <section id="deals" class="deals">
+        <article class="card deal">
+          <h3>Bundle Offer</h3>
+          <p class="muted">Buy any 2 clothing items and get 15% off at checkout.</p>
+        </article>
+        <article class="card deal">
+          <h3>Free Shipping</h3>
+          <p class="muted">Orders above $50 are delivered free across the U.S.</p>
+        </article>
+      </section>
+
+      <section class="newsletter">
+        <article class="card">
+          <h3>Join our newsletter</h3>
+          <p class="muted">Get new arrivals, discounts, and style tips every week.</p>
+          <form id="newsletterForm">
+            <input id="newsletterEmail" type="email" placeholder="you@example.com" required />
+            <button class="btn" type="submit">Subscribe</button>
+          </form>
+          <div class="msg" id="newsletterMsg"></div>
+        </article>
+      </section>
+
+      <section class="contact" id="contact">
+        <article class="card">
+          <h3>Send us a message</h3>
+          <div class="contact-grid">
+            <input id="nameInput" type="text" placeholder="Your name" />
+            <input id="emailInput" type="email" placeholder="Your email" />
+            <textarea id="messageInput" placeholder="How can we help?"></textarea>
+            <button class="btn" id="sendBtn" type="button">Send Message</button>
+          </div>
+          <div class="msg" id="contactMsg"></div>
+        </article>
+      </section>
+    </main>
+
+    <aside class="cart-panel" id="cartPanel" aria-label="Cart panel">
+      <div class="section-head" style="margin-top: 0">
+        <h3 style="margin: 0">Your Cart</h3>
+        <button class="btn btn-outline" id="clearCart" type="button">Clear</button>
+      </div>
+      <div id="cartItems"></div>
+      <div class="price-row" style="margin-top: 0.7rem">
+        <strong>Total</strong>
+        <strong id="cartTotal">$0</strong>
+      </div>
+    </aside>
+
+    <div class="toast" id="toast"></div>
+
+    <footer>
+      <div class="container footer">
+        <span>© <span id="year"></span> RANA COLLECTION. All rights reserved.</span>
+        <span>Built with enhanced CSS + JavaScript interactions.</span>
+      </div>
+    </footer>
+
+    <script>
+      const products = [
+        { id: 1, name: 'Classic Linen Shirt', category: 'Clothing', price: 34, popularity: 90 },
+        { id: 2, name: 'Premium Denim Jacket', category: 'Clothing', price: 69, popularity: 78 },
+        { id: 3, name: 'Leather Tote Bag', category: 'Accessories', price: 52, popularity: 76 },
+        { id: 4, name: 'Minimalist Wrist Watch', category: 'Accessories', price: 79, popularity: 87 },
+        { id: 5, name: 'Sport Sneakers', category: 'Footwear', price: 63, popularity: 85 },
+        { id: 6, name: 'Everyday Sandals', category: 'Footwear', price: 39, popularity: 70 },
+        { id: 7, name: 'Cotton Summer Dress', category: 'Clothing', price: 44, popularity: 82 },
+        { id: 8, name: 'Polarized Sunglasses', category: 'Accessories', price: 28, popularity: 88 }
+      ];
+
+      const state = {
+        category: 'All',
+        query: '',
+        sort: 'popular',
+        cart: JSON.parse(localStorage.getItem('rana_cart_v2') || '{}'),
+        darkMode: localStorage.getItem('rana_theme') === 'dark'
+      };
+
+      const ui = {
+        productGrid: document.getElementById('productGrid'),
+        categoryFilters: document.getElementById('categoryFilters'),
+        searchInput: document.getElementById('searchInput'),
+        sortSelect: document.getElementById('sortSelect'),
+        resetBtn: document.getElementById('resetBtn'),
+        cartCount: document.getElementById('cartCount'),
+        resultCount: document.getElementById('resultCount'),
+        liveMsg: document.getElementById('liveMsg'),
+        themeToggle: document.getElementById('themeToggle'),
+        cartToggle: document.getElementById('cartToggle'),
+        cartPanel: document.getElementById('cartPanel'),
+        cartItems: document.getElementById('cartItems'),
+        cartTotal: document.getElementById('cartTotal'),
+        clearCart: document.getElementById('clearCart'),
+        toast: document.getElementById('toast'),
+        newsletterForm: document.getElementById('newsletterForm'),
+        newsletterEmail: document.getElementById('newsletterEmail'),
+        newsletterMsg: document.getElementById('newsletterMsg'),
+        sendBtn: document.getElementById('sendBtn'),
+        contactMsg: document.getElementById('contactMsg'),
+        nameInput: document.getElementById('nameInput'),
+        emailInput: document.getElementById('emailInput'),
+        messageInput: document.getElementById('messageInput'),
+        year: document.getElementById('year')
+      };
+
+      const categories = ['All', ...new Set(products.map((p) => p.category))];
+
+      function saveCart() {
+        localStorage.setItem('rana_cart_v2', JSON.stringify(state.cart));
+      }
+
+      function toast(message) {
+        ui.toast.textContent = message;
+        ui.toast.classList.add('show');
+        setTimeout(() => ui.toast.classList.remove('show'), 1200);
+      }
+
+      function flash(el, text, duration = 1300) {
+        el.textContent = text;
+        setTimeout(() => {
+          if (el.textContent === text) el.textContent = '';
+        }, duration);
+      }
+
+      function cartCount() {
+        return Object.values(state.cart).reduce((sum, qty) => sum + qty, 0);
+      }
+
+      function cartTotal() {
+        return Object.entries(state.cart).reduce((sum, [id, qty]) => {
+          const product = products.find((p) => p.id === Number(id));
+          return sum + (product ? product.price * qty : 0);
+        }, 0);
+      }
+
+      function sortedProducts(items) {
+        const arr = [...items];
+        if (state.sort === 'priceAsc') arr.sort((a, b) => a.price - b.price);
+        if (state.sort === 'priceDesc') arr.sort((a, b) => b.price - a.price);
+        if (state.sort === 'nameAsc') arr.sort((a, b) => a.name.localeCompare(b.name));
+        if (state.sort === 'popular') arr.sort((a, b) => b.popularity - a.popularity);
+        return arr;
+      }
+
+      function filteredProducts() {
+        return sortedProducts(
+          products.filter((product) => {
+            const byCategory = state.category === 'All' || product.category === state.category;
+            const byQuery = product.name.toLowerCase().includes(state.query.toLowerCase());
+            return byCategory && byQuery;
+          })
+        );
+      }
+
+      function renderCategories() {
+        ui.categoryFilters.innerHTML = categories
+          .map(
+            (category) =>
+              `<button class="chip ${state.category === category ? 'active' : ''}" data-category="${category}" type="button">${category}</button>`
+          )
+          .join('');
+      }
+
+      function renderProducts() {
+        const list = filteredProducts();
+        ui.resultCount.textContent = `${list.length} item${list.length === 1 ? '' : 's'}`;
+
+        if (!list.length) {
+          ui.productGrid.innerHTML = '<div class="empty">No products found. Try another search or filter.</div>';
+          return;
+        }
+
+        ui.productGrid.innerHTML = list
+          .map(
+            (product) =>
+              `<article class="card product">
+                <div class="thumb">${product.category}</div>
+                <h3>${product.name}</h3>
+                <div class="price-row">
+                  <strong>$${product.price}</strong>
+                  <span class="muted">⭐ ${product.popularity}</span>
+                </div>
+                <button class="btn" style="margin-top:0.6rem;width:100%" data-add="${product.id}" type="button">Add to Cart</button>
+              </article>`
+          )
+          .join('');
+      }
+
+      function renderCart() {
+        const items = Object.entries(state.cart)
+          .filter(([, qty]) => qty > 0)
+          .map(([id, qty]) => ({ product: products.find((p) => p.id === Number(id)), qty }))
+          .filter((entry) => entry.product);
+
+        ui.cartCount.textContent = cartCount();
+        ui.cartTotal.textContent = `$${cartTotal()}`;
+
+        if (!items.length) {
+          ui.cartItems.innerHTML = '<p class="muted">Your cart is empty.</p>';
+          return;
+        }
+
+        ui.cartItems.innerHTML = items
+          .map(
+            ({ product, qty }) =>
+              `<div class="cart-row">
+                <span>${product.name}</span>
+                <div>
+                  <button class="qty-btn" data-dec="${product.id}" type="button">−</button>
+                  <span class="pill">${qty}</span>
+                  <button class="qty-btn" data-inc="${product.id}" type="button">+</button>
+                </div>
+                <strong>$${product.price * qty}</strong>
+              </div>`
+          )
+          .join('');
+      }
+
+      function addToCart(id, qty = 1) {
+        state.cart[id] = (state.cart[id] || 0) + qty;
+        if (state.cart[id] < 0) state.cart[id] = 0;
+        if (state.cart[id] === 0) delete state.cart[id];
+        saveCart();
+        renderCart();
+      }
+
+      function resetFilters() {
+        state.query = '';
+        state.category = 'All';
+        state.sort = 'popular';
+        ui.searchInput.value = '';
+        ui.sortSelect.value = 'popular';
+        renderCategories();
+        renderProducts();
+      }
+
+      ui.categoryFilters.addEventListener('click', (event) => {
+        const btn = event.target.closest('button[data-category]');
+        if (!btn) return;
+        state.category = btn.dataset.category;
+        renderCategories();
+        renderProducts();
+      });
+
+      ui.productGrid.addEventListener('click', (event) => {
+        const btn = event.target.closest('button[data-add]');
+        if (!btn) return;
+        const id = Number(btn.dataset.add);
+        addToCart(id, 1);
+        const product = products.find((p) => p.id === id);
+        if (product) {
+          flash(ui.liveMsg, `${product.name} added to cart.`);
+          toast('Item added to cart');
+        }
+      });
+
+      ui.cartItems.addEventListener('click', (event) => {
+        const inc = event.target.closest('button[data-inc]');
+        const dec = event.target.closest('button[data-dec]');
+        if (inc) addToCart(Number(inc.dataset.inc), 1);
+        if (dec) addToCart(Number(dec.dataset.dec), -1);
+      });
+
+      ui.searchInput.addEventListener('input', (event) => {
+        state.query = event.target.value.trim();
+        renderProducts();
+      });
+
+      ui.sortSelect.addEventListener('change', (event) => {
+        state.sort = event.target.value;
+        renderProducts();
+      });
+
+      ui.resetBtn.addEventListener('click', resetFilters);
+
+      ui.themeToggle.addEventListener('click', () => {
+        state.darkMode = !state.darkMode;
+        document.body.classList.toggle('dark', state.darkMode);
+        localStorage.setItem('rana_theme', state.darkMode ? 'dark' : 'light');
+        toast(state.darkMode ? 'Dark mode on' : 'Light mode on');
+      });
+
+      ui.cartToggle.addEventListener('click', () => {
+        ui.cartPanel.classList.toggle('open');
+      });
+
+      ui.clearCart.addEventListener('click', () => {
+        state.cart = {};
+        saveCart();
+        renderCart();
+        toast('Cart cleared');
+      });
+
+      ui.newsletterForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const email = ui.newsletterEmail.value.trim();
+        if (!email.includes('@')) {
+          flash(ui.newsletterMsg, 'Please enter a valid email address.');
+          return;
+        }
+        flash(ui.newsletterMsg, `Subscribed: ${email}`);
+        ui.newsletterForm.reset();
+      });
+
+      ui.sendBtn.addEventListener('click', () => {
+        const name = ui.nameInput.value.trim();
+        const email = ui.emailInput.value.trim();
+        const message = ui.messageInput.value.trim();
+
+        if (!name || !email || !message) {
+          flash(ui.contactMsg, 'Please complete all contact fields.');
+          return;
+        }
+
+        flash(ui.contactMsg, `Thanks ${name}, we will contact you shortly.`);
+        ui.nameInput.value = '';
+        ui.emailInput.value = '';
+        ui.messageInput.value = '';
+      });
+
+      document.body.classList.toggle('dark', state.darkMode);
+      ui.year.textContent = new Date().getFullYear();
+      renderCategories();
+      renderProducts();
+      renderCart();
+    </script>
+  </body>
+</html>
