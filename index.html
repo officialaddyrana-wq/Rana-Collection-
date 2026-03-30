@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pulse+ Social Media</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="brand">Pulse+</div>
+        <small id="welcomeText">Welcome back!</small>
+      </div>
+      <div class="topbar-actions">
+        <button id="themeToggle" class="ghost">🌗 Theme</button>
+        <button id="openNotifications" class="ghost">🔔 <span id="notifCount">0</span></button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="card left-rail">
+        <h2>Your Profile</h2>
+        <form id="profileForm">
+          <input id="profileName" type="text" maxlength="32" placeholder="Display name" required />
+          <input id="profileAvatar" type="url" placeholder="Avatar URL (optional)" />
+          <textarea id="profileBio" maxlength="120" placeholder="Short bio"></textarea>
+          <button type="submit">Save Profile</button>
+        </form>
+
+        <div class="profile-preview">
+          <img id="avatarPreview" alt="avatar" class="avatar" />
+          <div>
+            <strong id="namePreview">Anonymous</strong>
+            <p id="bioPreview">No bio yet.</p>
+          </div>
+        </div>
+
+        <h3>Trending Hashtags</h3>
+        <ul id="trendingList" class="simple-list"></ul>
+      </aside>
+
+      <section class="center-column">
+        <section class="card stories">
+          <div class="section-title">
+            <h2>Stories</h2>
+            <button id="refreshStories" class="ghost">Refresh</button>
+          </div>
+          <ul id="storiesList" class="stories-list"></ul>
+        </section>
+
+        <section class="card composer">
+          <h1>Create Post</h1>
+          <form id="postForm">
+            <textarea id="content" maxlength="280" placeholder="Share your thoughts..." required></textarea>
+            <input id="imageUrl" type="url" placeholder="Image URL (optional)" />
+            <input id="hashtags" type="text" placeholder="Hashtags (comma separated) e.g. coding,web" />
+            <div class="compose-actions">
+              <small><span id="charCount">0</span>/280</small>
+              <button type="submit">Publish</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="card">
+          <div class="feed-toolbar">
+            <input id="searchInput" type="search" placeholder="Search posts, hashtags, users" />
+            <select id="sortSelect">
+              <option value="newest">Newest</option>
+              <option value="popular">Most liked</option>
+              <option value="comments">Most commented</option>
+            </select>
+            <button id="showBookmarks" class="ghost">Bookmarks</button>
+          </div>
+          <ul id="feed" class="feed"></ul>
+        </section>
+      </section>
+
+      <aside class="card right-rail">
+        <h2>Activity</h2>
+        <p id="profileSummary">No activity yet.</p>
+        <h3>Saved Posts</h3>
+        <ul id="savedMiniList" class="simple-list"></ul>
+        <button id="clearAll" class="danger">Delete All Posts</button>
+      </aside>
+    </main>
+
+    <dialog id="notificationsDialog">
+      <h3>Notifications</h3>
+      <ul id="notificationsList" class="simple-list"></ul>
+      <button id="closeNotifications">Close</button>
+    </dialog>
+
+    <template id="postTemplate">
+      <li class="post">
+        <div class="post-head">
+          <div class="head-left">
+            <img class="avatar mini" alt="author" />
+            <div>
+              <strong class="post-author"></strong>
+              <time class="post-time"></time>
+            </div>
+          </div>
+          <div class="menu-actions">
+            <button class="ghost edit-btn">Edit</button>
+            <button class="ghost delete-btn">Delete</button>
+          </div>
+        </div>
+        <p class="post-content"></p>
+        <img class="post-image hidden" alt="post image" />
+        <div class="tag-row"></div>
+        <div class="post-actions">
+          <button class="like-btn">❤️ <span>0</span></button>
+          <button class="comment-toggle">💬 Comment</button>
+          <button class="repost-btn">🔁 <span>0</span></button>
+          <button class="bookmark-btn">🔖 Save</button>
+          <button class="share-btn">📤 Share</button>
+        </div>
+        <form class="comment-form hidden">
+          <input type="text" maxlength="120" placeholder="Write a comment" required />
+          <button type="submit">Add</button>
+        </form>
+        <ul class="comments"></ul>
+      </li>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
