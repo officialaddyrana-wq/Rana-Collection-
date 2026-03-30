@@ -12,6 +12,10 @@ Complete e-commerce website starter for **RANA COLLECTION**.
 - Newsletter subscription form behavior
 - Contact form validation feedback
 - About, deals, and support sections
+- Featured product catalog grid
+- Category filters and search
+- Add-to-cart interactions with localStorage cart counter
+- About and contact sections
 
 ## Run locally
 
